@@ -1,9 +1,10 @@
-import react from "react"
+import React from "react"
 import styled from "@emotion/styled/macro"
 import tw from "twin.macro"
-import Image from "next/image"
 
-const getIconInfo = (iconType) => {
+type IconType = "user" | "lock"
+
+const getIconInfo = (iconType: IconType) => {
   switch (iconType) {
     case "user":
       return {
@@ -22,7 +23,7 @@ const getIconInfo = (iconType) => {
   }
 }
 
-const Container = styled.div`
+const Container = styled.div<{ iconType: IconType }>`
   ${tw`px-[5px] border-b-grey-400 border-b-[1px] w-full flex items-center`}
   .icon {
     ${({ iconType }) => {
@@ -47,13 +48,21 @@ const Container = styled.div`
 
 const CustomInput = tw.input`outline-none text-[16px] py-[9px] w-full placeholder-grey-400`
 
+type Props = {
+  value?: string
+  type?: string
+  placeholder?: string
+  onChange?: React.ChangeEventHandler<HTMLInputElement>
+  iconType: IconType
+}
+
 export default function Input({
   iconType,
   value,
   type,
   placeholder,
   onChange,
-}) {
+}: Props) {
   return (
     <Container iconType={iconType}>
       {iconType && <div className="icon" tw="bg-no-repeat box-content" />}

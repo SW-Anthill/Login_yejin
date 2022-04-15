@@ -1,6 +1,7 @@
+import React from "react"
 import tw from "twin.macro"
 import Button from "../components/atom/Button"
-import Input from "../components/atom/Input"
+import Input from "../components/atom/LineInput"
 import LinkButton from "../components/atom/LinkButton"
 
 const Container = tw.div`bg-grey-100 w-full h-full min-h-screen flex items-center justify-center`
