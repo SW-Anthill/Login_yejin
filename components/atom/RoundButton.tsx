@@ -7,10 +7,6 @@ type Props = {
   label?: string
 } & React.ButtonHTMLAttributes<HTMLButtonElement>
 
-export default function Button({ label, type, onClick }: Props) {
-  return (
-    <CustomButton onClick={onClick} type={type}>
-      {label}
-    </CustomButton>
-  )
+export default function RoundButton({ label, ...otherProps }: Props) {
+  return <CustomButton {...otherProps}>{label}</CustomButton>
 }

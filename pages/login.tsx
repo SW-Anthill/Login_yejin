@@ -1,6 +1,6 @@
 import React from "react"
 import tw from "twin.macro"
-import Button from "../components/atom/Button"
+import RoundButton from "../components/atom/RoundButton"
 import Input from "../components/atom/LineInput"
 import LinkButton from "../components/atom/LinkButton"
 
@@ -26,7 +26,7 @@ export default function Login() {
             <Input iconType="lock" placeholder="Password" type="password" />
           </div>
           <div tw="mt-[66px]">
-            <Button label="Login" type="submit" />
+            <RoundButton label="Login" type="submit" />
           </div>
         </form>
         <div tw="flex justify-between mt-[21px]">
