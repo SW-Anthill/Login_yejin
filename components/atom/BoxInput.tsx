@@ -2,7 +2,7 @@ import React from "react"
 import tw from "twin.macro"
 import { InputLabel } from "../styles"
 
-const CustomInput = tw.input`outline-none border-green-300 w-[484px] border-[1px] text-[16px] p-[6px] h-[46px] placeholder-grey-400 rounded-[2px]`
+const CustomInput = tw.input`outline-none border-green-300 disabled:bg-white w-[484px] border-[1px] text-[16px] p-[6px] h-[46px] placeholder-grey-400 rounded-[2px]`
 
 export default function BoxInput({
   label,

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import tw from "twin.macro"
 import BoxInput from "../components/atom/BoxInput"
 import Button from "../components/atom/RoundButton"
@@ -12,7 +12,10 @@ const Container = tw.div`w-[600px] mx-auto flex flex-col items-center justify-ce
 
 const Title = tw.div`font-bold w-full text-[40px] mt-[70px]`
 
+const LabelButton = tw.label`whitespace-nowrap cursor-pointer flex items-center rounded-[2px] text-[16px] bg-green-300 text-center h-[46px] px-[12px] text-white`
+
 export default function Create() {
+  const [thumbnail, setThumbnail] = useState<File>()
   return (
     <Container>
       <Title>배딜 생성</Title>
@@ -21,8 +24,19 @@ export default function Create() {
         <BoxInput label="배딜 제목" />
         <Textarea label="상세 설명" />
         <div tw="flex items-center">
-          <BoxInput label="썸네일" tw="w-[392.5px]" />
-          <SquareButton label="파일 찾기" />
+          <input
+            type="file"
+            id="thumbnail"
+            tw="hidden"
+            onChange={(e) => setThumbnail(e.target.files?.[0])}
+          />
+          <BoxInput
+            label="썸네일"
+            tw="w-[392.5px]"
+            disabled
+            value={thumbnail?.name ?? ""}
+          />
+          <LabelButton htmlFor="thumbnail">파일 찾기</LabelButton>
         </div>
       </div>
       <CategoryDivider category="가게 정보" style={{ marginTop: "60px" }} />
