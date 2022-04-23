@@ -56,7 +56,7 @@ type Props = {
   iconType: IconType
 }
 
-export default function Input({
+export default function LineInput({
   iconType,
   value,
   type,

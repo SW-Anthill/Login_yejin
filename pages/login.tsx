@@ -1,7 +1,7 @@
 import React from "react"
 import tw from "twin.macro"
 import RoundButton from "../components/atom/RoundButton"
-import Input from "../components/atom/LineInput"
+import LineInput from "../components/atom/LineInput"
 import LinkButton from "../components/atom/LinkButton"
 
 const Container = tw.div`bg-grey-100 w-full h-full min-h-screen flex items-center justify-center`
@@ -20,10 +20,10 @@ export default function Login() {
         <Title>ANTHILL</Title>
         <form>
           <div tw="mt-[39px]">
-            <Input iconType="user" placeholder="Username" />
+            <LineInput iconType="user" placeholder="Username" />
           </div>
           <div tw="mt-[45px]">
-            <Input iconType="lock" placeholder="Password" type="password" />
+            <LineInput iconType="lock" placeholder="Password" type="password" />
           </div>
           <div tw="mt-[66px]">
             <RoundButton label="Login" type="submit" />
