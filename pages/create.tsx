@@ -7,6 +7,7 @@ import SquareButton from "../components/atom/SquareButton"
 import { CustomInput, InputLabel } from "../components/styles"
 import Textarea from "../components/atom/Textarea"
 import { useFormik } from "formik"
+import Postcode from "../components/atom/Postcode"
 
 const Container = tw.form`w-[600px] mx-auto flex flex-col items-center justify-center`
 
@@ -27,6 +28,8 @@ type InputValues = {
 
 export default function Create() {
   const [thumbnail, setThumbnail] = useState<File>()
+  const [address, setAddress] = useState("")
+  const [showPostcode, setShowPostcode] = useState(false)
   const { handleChange, handleSubmit, values } = useFormik<InputValues>({
     initialValues: {},
     onSubmit: (values) => {
@@ -34,7 +37,8 @@ export default function Create() {
         !Object.values(values).every(
           (value) => value !== undefined && value !== ""
         ) ||
-        !thumbnail
+        !thumbnail ||
+        address === ""
       ) {
         alert("내용을 모두 입력해주세요.")
         return
@@ -42,13 +46,19 @@ export default function Create() {
       localStorage.setItem("orderName", values.orderName ?? "")
       localStorage.setItem("desc", values.desc ?? "")
       localStorage.setItem("thumbnail", URL.createObjectURL(thumbnail))
-      localStorage.setItem("orderName", values.orderName ?? "")
+      const store = {
+        name: values.storeName,
+        address: address + " " + values.storeAddress,
+        minOrderPrice: values.minOrderPrice,
+      }
+      localStorage.setItem("store", JSON.stringify(store))
       const item = {
         name: values.menuName,
         quantity: values.menuCount,
         price: values.menuPrice,
       }
       localStorage.setItem("items", JSON.stringify(item))
+      alert("작성이 완료되었습니다.")
     },
   })
 
@@ -79,8 +89,25 @@ export default function Create() {
         <BoxInput label="이름" name="storeName" />
         <BoxInput
           label="위치"
-          buttonComponent={<SquareButton label="우편 번호 찾기" />}
+          disabled
+          value={address}
+          onClick={() => setShowPostcode(true)}
+          buttonComponent={
+            <SquareButton
+              type="button"
+              label="우편 번호 찾기"
+              onClick={() => setShowPostcode(true)}
+            />
+          }
         />
+        {showPostcode && (
+          <Postcode
+            onSelect={(value) => {
+              setAddress(value)
+              setShowPostcode(false)
+            }}
+          />
+        )}
         <BoxInput
           label=" "
           placeholder="상세 주소 입력"
