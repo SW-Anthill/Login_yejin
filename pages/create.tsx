@@ -4,7 +4,7 @@ import BoxInput from "../components/atom/BoxInput"
 import RoundButton from "../components/atom/RoundButton"
 import CategoryDivider from "../components/atom/CategoryDivider"
 import SquareButton from "../components/atom/SquareButton"
-import { InputLabel } from "../components/styles"
+import { CustomInput, InputLabel } from "../components/styles"
 import Textarea from "../components/atom/Textarea"
 import { useFormik } from "formik"
 
@@ -59,29 +59,28 @@ export default function Create() {
       <div tw="w-full grid gap-[8px]">
         <BoxInput label="배딜 제목" name="orderName" value={values.orderName} />
         <Textarea label="상세 설명" name="desc" value={values.desc} />
-        <div tw="flex items-center">
-          <input
-            type="file"
-            id="thumbnail"
-            tw="hidden"
-            onChange={(e) => setThumbnail(e.target.files?.[0])}
-          />
-          <BoxInput
-            label="썸네일"
-            tw="w-[392.5px]"
-            disabled
-            value={thumbnail?.name ?? ""}
-          />
-          <LabelButton htmlFor="thumbnail">파일 찾기</LabelButton>
-        </div>
+        <input
+          type="file"
+          id="thumbnail"
+          tw="hidden"
+          onChange={(e) => setThumbnail(e.target.files?.[0])}
+        />
+        <BoxInput
+          label="썸네일"
+          disabled
+          value={thumbnail?.name ?? ""}
+          buttonComponent={
+            <LabelButton htmlFor="thumbnail">파일 찾기</LabelButton>
+          }
+        />
       </div>
       <CategoryDivider category="가게 정보" style={{ marginTop: "60px" }} />
       <div tw="w-full grid gap-[8px]">
         <BoxInput label="이름" name="storeName" />
-        <div tw="flex items-center">
-          <BoxInput label="위치" tw="w-[356.5px]" />
-          <SquareButton label="우편 번호 찾기" />
-        </div>
+        <BoxInput
+          label="위치"
+          buttonComponent={<SquareButton label="우편 번호 찾기" />}
+        />
         <BoxInput
           label=" "
           placeholder="상세 주소 입력"
@@ -98,19 +97,27 @@ export default function Create() {
       <div tw="grid grid-flow-col gap-[5px]">
         <div>
           <InputLabel>구매자</InputLabel>
-          <BoxInput tw="w-[111px]" />
+          <CustomInput tw="w-[111px]" />
         </div>
         <div>
           <InputLabel>메뉴 이름</InputLabel>
-          <BoxInput tw="w-[237px]" name="menuName" value={values.menuName} />
+          <CustomInput tw="w-[237px]" name="menuName" value={values.menuName} />
         </div>
         <div>
           <InputLabel>수량</InputLabel>
-          <BoxInput tw="w-[103px]" name="menuCount" value={values.menuCount} />
+          <CustomInput
+            tw="w-[103px]"
+            name="menuCount"
+            value={values.menuCount}
+          />
         </div>
         <div>
           <InputLabel>가격</InputLabel>
-          <BoxInput tw="w-[134px]" name="menuPrice" value={values.menuPrice} />
+          <CustomInput
+            tw="w-[134px]"
+            name="menuPrice"
+            value={values.menuPrice}
+          />
         </div>
       </div>
       <RoundButton
