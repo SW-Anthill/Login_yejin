@@ -4,14 +4,12 @@ import BoxInput from "../components/atom/BoxInput"
 import RoundButton from "../components/atom/RoundButton"
 import CategoryDivider from "../components/atom/CategoryDivider"
 import SquareButton from "../components/atom/SquareButton"
-import { CustomInput, InputLabel } from "../components/styles"
+import { CustomInput, InputLabel, PageTitle } from "../components/styles"
 import Textarea from "../components/atom/Textarea"
 import { useFormik } from "formik"
 import Postcode from "../components/atom/Postcode"
 
 const Container = tw.form`w-[600px] mx-auto flex flex-col items-center justify-center`
-
-const Title = tw.div`font-bold w-full text-[40px] mt-[70px]`
 
 const LabelButton = tw.label`whitespace-nowrap cursor-pointer flex items-center rounded-[2px] text-[16px] bg-green-300 text-center h-[46px] px-[12px] text-white`
 
@@ -43,28 +41,33 @@ export default function Create() {
         alert("내용을 모두 입력해주세요.")
         return
       }
-      localStorage.setItem("orderName", values.orderName ?? "")
-      localStorage.setItem("desc", values.desc ?? "")
-      localStorage.setItem("thumbnail", URL.createObjectURL(thumbnail))
-      const store = {
-        name: values.storeName,
-        address: address + " " + values.storeAddress,
-        minOrderPrice: values.minOrderPrice,
-      }
-      localStorage.setItem("store", JSON.stringify(store))
-      const item = {
-        name: values.menuName,
-        quantity: values.menuCount,
-        price: values.menuPrice,
-      }
-      localStorage.setItem("items", JSON.stringify(item))
+      const list = JSON.parse(localStorage.getItem("list") ?? "[]")
+      const newItem = [
+        ...list,
+        {
+          orderName: values.orderName ?? "",
+          desc: values.desc ?? "",
+          thumbnail: URL.createObjectURL(thumbnail),
+          store: {
+            name: values.storeName,
+            address: address + " " + values.storeAddress,
+            minOrderPrice: values.minOrderPrice,
+          },
+          item: {
+            name: values.menuName,
+            quantity: values.menuCount,
+            price: values.menuPrice,
+          },
+        },
+      ]
+      localStorage.setItem("list", JSON.stringify(newItem))
       alert("작성이 완료되었습니다.")
     },
   })
 
   return (
     <Container onChange={handleChange} onSubmit={handleSubmit}>
-      <Title>배딜 생성</Title>
+      <PageTitle>배딜 생성</PageTitle>
       <CategoryDivider category="배딜 설명" style={{ marginTop: "27px" }} />
       <div tw="w-full grid gap-[8px]">
         <BoxInput label="배딜 제목" name="orderName" value={values.orderName} />
